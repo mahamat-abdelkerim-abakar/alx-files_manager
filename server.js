@@ -1,12 +1,12 @@
 import express from 'express';
-import { env } from 'process';
+import startServer from './libs/boot';
+import injectRoutes from './routes';
+import injectMiddlewares from './libs/middlewares';
 
-const mainRoute = require('./routes/index');
+const server = express();
 
-const app = express();
-const port = env.PORT || 5000;
-app.use(express.json());
-app.use(mainRoute);
-app.listen(port, '127.0.0.1');
+injectMiddlewares(server);
+injectRoutes(server);
+startServer(server);
 
-export default app;
+export default server;
